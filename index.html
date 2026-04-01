@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory Fragmentation Analysis Tool — Simulation & Visualization</title>
+  <meta name="description" content="Interactive simulation tool that demonstrates and analyzes internal and external memory fragmentation caused by dynamic memory allocation strategies." />
+  <meta name="keywords" content="memory fragmentation, first fit, best fit, worst fit, memory allocation, simulation, operating systems" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🧩</text></svg>" />
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <h1>🧩 Memory Fragmentation Analysis Tool</h1>
+      <p>Simulate dynamic memory allocation &bull; Visualize fragmentation &bull; Compare algorithms</p>
+    </header>
+
+    <main class="dashboard">
+      <!-- Sidebar: Controls -->
+      <aside class="sidebar panel" id="controlsPanel">
+        <div class="panel-title">⚡ Controls</div>
+        <div id="controls"></div>
+      </aside>
+
+      <!-- Memory Map -->
+      <section class="panel" id="memoryMapPanel">
+        <div class="panel-title">🗺️ Memory Layout</div>
+        <div id="memoryMap"></div>
+        <div class="address-bar">
+          <span>0 KB</span>
+          <span id="memEndAddr">1024 KB</span>
+        </div>
+        <div class="legend-bar">
+          <div class="legend-item"><div class="legend-swatch" style="background:#6366f1;"></div> Allocated</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#1a1f35;opacity:.7;"></div> Free</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:repeating-linear-gradient(-45deg,rgba(248,113,113,.35),rgba(248,113,113,.35) 3px,transparent 3px,transparent 7px);border:1px solid #f87171;"></div> Internal Frag</div>
+        </div>
+      </section>
+
+      <!-- Stats Panel -->
+      <section class="panel" id="statsPanel">
+        <div class="panel-title">📊 Statistics</div>
+        <div id="stats"></div>
+      </section>
+
+      <!-- Charts -->
+      <section class="panel" id="chartsPanel">
+        <div class="panel-title">📈 Analytics</div>
+        <div class="charts-grid">
+          <div class="chart-wrapper">
+            <canvas id="fragChart"></canvas>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="utilChart"></canvas>
+          </div>
+          <div class="chart-wrapper full">
+            <canvas id="compareChart"></canvas>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
