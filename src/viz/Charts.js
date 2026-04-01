@@ -26,12 +26,12 @@ const CHART_DEFAULTS = {
   maintainAspectRatio: false,
   animation: { duration: 350 },
   plugins: {
-    legend: { labels: { color: '#cbd5e1', font: { family: "'Inter', sans-serif", size: 11 } } },
-    tooltip: { backgroundColor: '#1e293bee', titleColor: '#f8fafc', bodyColor: '#94a3b8', cornerRadius: 8 },
+    legend: { labels: { color: '#52525b', font: { family: "'Inter', sans-serif", size: 11 } } },
+    tooltip: { backgroundColor: '#18181b', titleColor: '#ffffff', bodyColor: '#e4e4e7', cornerRadius: 6 },
   },
   scales: {
-    x: { ticks: { color: '#64748b', font: { size: 10 } }, grid: { color: '#1e293b' } },
-    y: { ticks: { color: '#64748b', font: { size: 10 } }, grid: { color: '#1e293b' }, beginAtZero: true },
+    x: { ticks: { color: '#71717a', font: { size: 10 } }, grid: { color: '#f4f4f5' } },
+    y: { ticks: { color: '#71717a', font: { size: 10 } }, grid: { color: '#f4f4f5' }, beginAtZero: true },
   },
 };
 
