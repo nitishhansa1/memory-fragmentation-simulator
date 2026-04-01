@@ -66,12 +66,19 @@ body {
 /* ─── Layout ─── */
 .dashboard {
   display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 16px;
+  grid-template-columns: 260px 1fr;
+  gap: 20px;
   align-items: start;
 }
 
-.sidebar { grid-row: 1 / -1; position: sticky; top: 20px; }
+.sidebar { position: sticky; top: 24px; }
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
 
 .panel {
   background: var(--bg);

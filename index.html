@@ -25,48 +25,51 @@
         <div id="controls"></div>
       </aside>
 
-      <!-- Memory Map -->
-      <section class="panel" id="memoryMapPanel">
-        <div class="panel-title">🗺️ Memory Layout</div>
-        <div id="memoryMap"></div>
-        <div class="address-bar">
-          <span>0 KB</span>
-          <span id="memEndAddr">1024 KB</span>
-        </div>
-        <div class="legend-bar">
-          <div class="legend-item"><div class="legend-swatch" style="background:#6366f1;"></div> Allocated</div>
-          <div class="legend-item"><div class="legend-swatch" style="background:#1a1f35;opacity:.7;"></div> Free</div>
-          <div class="legend-item"><div class="legend-swatch" style="background:repeating-linear-gradient(-45deg,rgba(248,113,113,.35),rgba(248,113,113,.35) 3px,transparent 3px,transparent 7px);border:1px solid #f87171;"></div> Internal Frag</div>
-        </div>
-      </section>
-
-      <!-- Stats Panel -->
-      <section class="panel" id="statsPanel">
-        <div class="panel-title">📊 Statistics</div>
-        <div id="stats"></div>
-      </section>
-
-      <!-- Detailed Process Table -->
-      <section class="panel" id="tablePanel">
-        <div class="panel-title">📋 Memory Blocks Detail</div>
-        <div id="processTable"></div>
-      </section>
-
-      <!-- Charts -->
-      <section class="panel" id="chartsPanel">
-        <div class="panel-title">📈 Analytics</div>
-        <div class="charts-grid">
-          <div class="chart-wrapper">
-            <canvas id="fragChart"></canvas>
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Memory Map -->
+        <section class="panel" id="memoryMapPanel">
+          <div class="panel-title">🗺️ Memory Layout</div>
+          <div id="memoryMap"></div>
+          <div class="address-bar">
+            <span>0 KB</span>
+            <span id="memEndAddr">1024 KB</span>
           </div>
-          <div class="chart-wrapper">
-            <canvas id="utilChart"></canvas>
+          <div class="legend-bar">
+            <div class="legend-item"><div class="legend-swatch" style="background:#6366f1;"></div> Allocated</div>
+            <div class="legend-item"><div class="legend-swatch" style="background:#1a1f35;opacity:.7;"></div> Free</div>
+            <div class="legend-item"><div class="legend-swatch" style="background:repeating-linear-gradient(-45deg,rgba(248,113,113,.35),rgba(248,113,113,.35) 3px,transparent 3px,transparent 7px);border:1px solid #f87171;"></div> Internal Frag</div>
           </div>
-          <div class="chart-wrapper full">
-            <canvas id="compareChart"></canvas>
+        </section>
+
+        <!-- Stats Panel -->
+        <section class="panel" id="statsPanel">
+          <div class="panel-title">📊 Statistics</div>
+          <div id="stats"></div>
+        </section>
+
+        <!-- Detailed Process Table -->
+        <section class="panel" id="tablePanel">
+          <div class="panel-title">📋 Memory Blocks Detail</div>
+          <div id="processTable"></div>
+        </section>
+
+        <!-- Charts -->
+        <section class="panel" id="chartsPanel">
+          <div class="panel-title">📈 Analytics</div>
+          <div class="charts-grid">
+            <div class="chart-wrapper">
+              <canvas id="fragChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="utilChart"></canvas>
+            </div>
+            <div class="chart-wrapper full">
+              <canvas id="compareChart"></canvas>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
   </div>
 
