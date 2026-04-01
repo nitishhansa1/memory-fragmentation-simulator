@@ -10,6 +10,7 @@ import MemoryMap     from './viz/MemoryMap.js';
 import Charts        from './viz/Charts.js';
 import Controls      from './ui/Controls.js';
 import StatsPanel    from './ui/StatsPanel.js';
+import ProcessTable  from './ui/ProcessTable.js';
 
 /* ─── State ─── */
 let engine = new MemoryEngine(1024);
@@ -17,13 +18,15 @@ let simulator = null;
 let stepCounter = 0;
 
 /* ─── DOM ─── */
-const memoryMapContainer = document.getElementById('memoryMap');
-const statsContainer     = document.getElementById('stats');
-const controlsContainer  = document.getElementById('controls');
+const memoryMapContainer  = document.getElementById('memoryMap');
+const statsContainer      = document.getElementById('stats');
+const controlsContainer   = document.getElementById('controls');
+const processTableContainer = document.getElementById('processTable');
 
 /* ─── Modules ─── */
 const memoryMap  = new MemoryMap(memoryMapContainer);
 const statsPanel = new StatsPanel(statsContainer);
+const processTable = new ProcessTable(processTableContainer);
 const charts     = new Charts({
   fragCtx:    document.getElementById('fragChart').getContext('2d'),
   utilCtx:    document.getElementById('utilChart').getContext('2d'),
@@ -35,6 +38,7 @@ function refresh(operation) {
   const stats = engine.getStats();
   memoryMap.render(engine.blocks, engine.totalSize);
   statsPanel.update(stats);
+  processTable.update(engine.blocks);
   if (operation) statsPanel.logOperation(operation);
 
   stepCounter++;
