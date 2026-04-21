@@ -142,6 +142,35 @@ export default class MemoryEngine {
     return { success: true };
   }
 
+  /* ─── Compaction (Defragmentation) ─── */
+
+  /**
+   * Compact memory by moving all allocated blocks to the beginning,
+   * eliminating external fragmentation. All free space is consolidated
+   * into a single contiguous block at the end of memory.
+   * @returns {{success:boolean, movedCount:number}}
+   */
+  compact() {
+    const allocated = this.blocks.filter(b => b.allocated);
+    const totalFree = this.blocks
+      .filter(b => !b.allocated)
+      .reduce((sum, b) => sum + b.size, 0);
+
+    if (totalFree === 0) {
+      return { success: true, movedCount: 0 };
+    }
+
+    // Rebuild block list: all allocated blocks packed at the front,
+    // followed by one contiguous free block
+    this.blocks = [...allocated];
+    if (totalFree > 0) {
+      this.blocks.push(this._freeBlock(totalFree));
+    }
+
+    this._snapshot(`Compacted memory — moved ${allocated.length} block(s), consolidated ${totalFree} KB free`);
+    return { success: true, movedCount: allocated.length };
+  }
+
   /* ─── Strategy helpers ─── */
 
   _findBlock(size, strategy) {

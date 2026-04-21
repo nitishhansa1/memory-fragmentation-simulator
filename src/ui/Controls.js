@@ -13,6 +13,7 @@ export default class Controls {
    * @param {function} callbacks.onAutoStop   - () => void
    * @param {function} callbacks.onStep       - () => void
    * @param {function} callbacks.onCompare    - () => void
+   * @param {function} callbacks.onCompact    - () => void
    */
   constructor(container, callbacks) {
     this.container = container;
@@ -71,6 +72,13 @@ export default class Controls {
         </button>
       </div>
 
+      <div class="control-group">
+        <h3><span class="icon">🧹</span> Memory Maintenance</h3>
+        <button id="btnCompact" class="btn btn-accent">
+          <span class="btn-icon">🧹</span> Compact Memory
+        </button>
+      </div>
+
       <div id="errorMsg" class="error-msg hidden"></div>
     `;
   }
@@ -115,6 +123,10 @@ export default class Controls {
 
     $('btnCompare').addEventListener('click', () => {
       this.cb.onCompare();
+    });
+
+    $('btnCompact').addEventListener('click', () => {
+      this.cb.onCompact();
     });
   }
 

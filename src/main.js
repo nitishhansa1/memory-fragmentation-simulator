@@ -154,6 +154,11 @@ const controls = new Controls(controlsContainer, {
     charts.updateComparison(results);
     refresh('Algorithm comparison completed');
   },
+
+  onCompact() {
+    const res = engine.compact();
+    refresh(`Memory compacted — ${res.movedCount} block(s) relocated`);
+  },
 });
 
 /* Simple seeded RNG for reproducible comparisons */
