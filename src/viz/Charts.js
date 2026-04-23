@@ -48,8 +48,8 @@ const CHART_DEFAULTS = {
     },
   },
   scales: {
-    x: { ticks: { color: '#71717a', font: { size: 10 } }, grid: { color: '#f4f4f5' } },
-    y: { ticks: { color: '#71717a', font: { size: 10 } }, grid: { color: '#f4f4f5' }, beginAtZero: true },
+    x: { ticks: { color: '#71717a', font: { size: 10 } }, grid: { color: 'rgba(161, 161, 170, 0.1)' } },
+    y: { ticks: { color: '#71717a', font: { size: 10 } }, grid: { color: 'rgba(161, 161, 170, 0.1)' }, beginAtZero: true },
   },
 };
 

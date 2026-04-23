@@ -33,6 +33,25 @@ const charts     = new Charts({
   compareCtx: document.getElementById('compareChart').getContext('2d'),
 });
 
+/* ─── Theme Management ─── */
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+// Load saved theme
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+  body.classList.add('dark');
+}
+
+themeToggle.addEventListener('click', () => {
+  body.classList.toggle('dark');
+  const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
+  localStorage.setItem('theme', currentTheme);
+  
+  // Optional: Update charts to match theme if needed
+  // Charts.js uses colors that work in both or we can refresh them
+});
+
 /* ─── Refresh UI ─── */
 function refresh(operation) {
   const stats = engine.getStats();
