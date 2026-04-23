@@ -26,8 +26,26 @@ const CHART_DEFAULTS = {
   maintainAspectRatio: false,
   animation: { duration: 350 },
   plugins: {
-    legend: { labels: { color: '#52525b', font: { family: "'Inter', sans-serif", size: 11 } } },
-    tooltip: { backgroundColor: '#18181b', titleColor: '#ffffff', bodyColor: '#e4e4e7', cornerRadius: 6 },
+    legend: { 
+      position: 'top',
+      align: 'end',
+      labels: { 
+        boxWidth: 8,
+        usePointStyle: true,
+        pointStyle: 'circle',
+        padding: 15,
+        color: '#71717a', 
+        font: { family: "'Inter', sans-serif", size: 10, weight: '600' } 
+      } 
+    },
+    tooltip: { 
+      backgroundColor: '#18181b', 
+      titleColor: '#ffffff', 
+      bodyColor: '#e4e4e7', 
+      padding: 10,
+      cornerRadius: 8,
+      displayColors: true
+    },
   },
   scales: {
     x: { ticks: { color: '#71717a', font: { size: 10 } }, grid: { color: '#f4f4f5' } },
@@ -111,7 +129,14 @@ export default class Charts {
           pointBackgroundColor: d.borderColor,
         })),
       },
-      options: { ...CHART_DEFAULTS, plugins: { ...CHART_DEFAULTS.plugins, title: { display: false } } },
+      options: { 
+        ...CHART_DEFAULTS, 
+        plugins: { 
+          ...CHART_DEFAULTS.plugins, 
+          title: { display: false },
+          legend: { display: datasets.length > 1 } // Hide legend if only 1 dataset
+        } 
+      },
     });
   }
 

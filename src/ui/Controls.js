@@ -14,6 +14,7 @@ export default class Controls {
    * @param {function} callbacks.onStep       - () => void
    * @param {function} callbacks.onCompare    - () => void
    * @param {function} callbacks.onCompact    - () => void
+   * @param {function} callbacks.onExport     - () => void
    */
   constructor(container, callbacks) {
     this.container = container;
@@ -73,9 +74,12 @@ export default class Controls {
       </div>
 
       <div class="control-group">
-        <h3><span class="icon">🧹</span> Memory Maintenance</h3>
+        <h3><span class="icon">🧹</span> Maintenance & Reports</h3>
         <button id="btnCompact" class="btn btn-accent">
           <span class="btn-icon">🧹</span> Compact Memory
+        </button>
+        <button id="btnExport" class="btn btn-secondary">
+          <span class="btn-icon">📥</span> Export Report (CSV)
         </button>
       </div>
 
@@ -127,6 +131,10 @@ export default class Controls {
 
     $('btnCompact').addEventListener('click', () => {
       this.cb.onCompact();
+    });
+
+    $('btnExport').addEventListener('click', () => {
+      this.cb.onExport();
     });
   }
 

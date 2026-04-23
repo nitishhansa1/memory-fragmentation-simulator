@@ -159,6 +159,33 @@ const controls = new Controls(controlsContainer, {
     const res = engine.compact();
     refresh(`Memory compacted — ${res.movedCount} block(s) relocated`);
   },
+
+  onExport() {
+    const blocks = engine.blocks;
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Block ID,Status,Process,Block Size (KB),Process Size (KB),Internal Frag (KB)\n";
+    
+    blocks.forEach((block, index) => {
+      const row = [
+        index + 1,
+        block.allocated ? "Allocated" : "Free",
+        block.process ? block.process.name : "—",
+        block.size,
+        block.allocated ? block.process.size : "—",
+        block.allocated ? block.internalFrag : 0
+      ].join(",");
+      csvContent += row + "\n";
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `memory_report_${new Date().getTime()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    refresh('Memory report exported');
+  },
 });
 
 /* Simple seeded RNG for reproducible comparisons */
