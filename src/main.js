@@ -75,7 +75,11 @@ const controls = new Controls(controlsContainer, {
   onAllocate(size, strategy) {
     const res = engine.allocate(size, strategy);
     if (!res.success) return controls.showError(res.error);
-    refresh(`Allocated ${size} KB [${strategy}]`);
+    // Use the engine's last history entry for richer detail (includes block selection info)
+    const lastOp = engine.history.length > 0
+      ? engine.history[engine.history.length - 1].operation
+      : `Allocated ${size} KB [${strategy}]`;
+    refresh(lastOp);
   },
 
   onDeallocate(processId) {
@@ -142,14 +146,17 @@ const controls = new Controls(controlsContainer, {
     const strategies = ['first-fit', 'best-fit', 'worst-fit'];
     const results = {};
 
-    // Generate a deterministic-ish workload
-    const workload = [];
+    // Generate a deterministic workload with its own RNG
     const totalMem = engine.totalSize;
-    const rng = seedRandom(42);
+    const workloadRng = seedRandom(42);
+    const workload = [];
     for (let i = 0; i < 20; i++) {
       workload.push({
-        action: rng() < 0.3 && i > 3 ? 'dealloc' : 'alloc',
-        size: Math.floor(rng() * totalMem * 0.18) + 10,
+        action: workloadRng() < 0.3 && i > 3 ? 'dealloc' : 'alloc',
+        size: Math.floor(workloadRng() * totalMem * 0.18) + 10,
+        // Pre-generate the deallocation index so each strategy
+        // uses the same random choices
+        deallocRand: workloadRng(),
       });
     }
 
@@ -162,7 +169,7 @@ const controls = new Controls(controlsContainer, {
           const res = tmpEngine.allocate(op.size, strat);
           if (res.success) allocatedIds.push(res.processId);
         } else if (allocatedIds.length > 0) {
-          const idx = Math.floor(rng() * allocatedIds.length);
+          const idx = Math.floor(op.deallocRand * allocatedIds.length);
           tmpEngine.deallocate(allocatedIds.splice(idx, 1)[0]);
         }
       }
@@ -185,13 +192,16 @@ const controls = new Controls(controlsContainer, {
     csvContent += "Block ID,Status,Process,Block Size (KB),Process Size (KB),Internal Frag (KB)\n";
     
     blocks.forEach((block, index) => {
+      const internalFrag = (block.allocated && block.processSize !== null)
+        ? block.size - block.processSize
+        : 0;
       const row = [
         index + 1,
         block.allocated ? "Allocated" : "Free",
-        block.process ? block.process.name : "—",
+        block.processName || "—",
         block.size,
-        block.allocated ? block.process.size : "—",
-        block.allocated ? block.internalFrag : 0
+        block.allocated ? (block.processSize || block.size) : "—",
+        internalFrag
       ].join(",");
       csvContent += row + "\n";
     });

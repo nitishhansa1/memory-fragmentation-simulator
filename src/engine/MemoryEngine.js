@@ -113,7 +113,7 @@ export default class MemoryEngine {
     }
 
     this.processes.set(processId, { name: processName, size, color });
-    this._snapshot(`Allocated ${processName} (${size} KB) [${strategy}]`);
+    this._snapshot(`Allocated ${processName} (${size} KB) [${strategy}] → block #${idx + 1} (${block.size} KB hole)`);
     return { success: true, processId };
   }
 
